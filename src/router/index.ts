@@ -1,8 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import CommandesView from '@/views/CommandesView.vue'
+import CommandeDetailView from '@/views/CommandeDetailView.vue'
+import ClientView from '@/views/ClientView.vue'
 import LoginPage from '@/components/LoginPage.vue'
 import Products from '@/components/Products.vue'
 import Dashboard from '@/components/Dashboard.vue'
 import Users from '@/components/users.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,6 +33,20 @@ const router = createRouter({
       path: '/users',
       name: 'users',
       component: Users,
+    { 
+        path: '/orders',
+        name: 'orders',
+        component: CommandesView 
+      },
+    { 
+      path: '/commande/:id',
+      name: 'singleOrder',
+       component: CommandeDetailView 
+      },
+    { 
+      path: '/client/:name',
+      name: 'singleClient',
+      component: ClientView 
     },
   ],
 })
