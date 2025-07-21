@@ -5,7 +5,7 @@ import ClientView from '@/views/ClientView.vue'
 import LoginPage from '@/components/LoginPage.vue'
 import Products from '@/components/Products.vue'
 import Dashboard from '@/components/Dashboard.vue'
-import Users from '@/components/users.vue'
+import Users from '@/components/Users.vue'
 
 
 const router = createRouter({
@@ -29,15 +29,16 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: Products,
     },
-        {
+    {
       path: '/users',
       name: 'users',
-      component: Users,
+      component: Users
+    },
     { 
         path: '/orders',
         name: 'orders',
         component: CommandesView 
-      },
+    },
     { 
       path: '/commande/:id',
       name: 'singleOrder',
