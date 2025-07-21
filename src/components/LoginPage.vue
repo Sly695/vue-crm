@@ -33,7 +33,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const isSignIn = ref(true)
 const email = ref('')
 const password = ref('')
@@ -55,6 +57,7 @@ function handleSubmit() {
   if (isSignIn.value) {
     // Ici, tu peux appeler une API de login
     console.log('Sign in with:', email.value, password.value)
+    router.push('/products');
   } else {
     // Ici, tu peux appeler une API de register
     console.log('Sign up with:', email.value, password.value)
