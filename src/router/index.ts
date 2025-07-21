@@ -4,7 +4,9 @@ import CommandeDetailView from '@/views/CommandeDetailView.vue'
 import ClientView from '@/views/ClientView.vue'
 import LoginPage from '@/components/LoginPage.vue'
 import Products from '@/components/Products.vue'
-import Clients from '@/views/UtilisateursView.vue'
+import Dashboard from '@/components/Dashboard.vue'
+import Users from '@/components/users.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,6 +17,11 @@ const router = createRouter({
       component: LoginPage,
     },
     {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: Dashboard,
+    },
+    {
       path: '/products',
       name: 'products',
       // route level code-splitting
@@ -22,6 +29,10 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: Products,
     },
+        {
+      path: '/users',
+      name: 'users',
+      component: Users,
     { 
         path: '/orders',
         name: 'orders',
@@ -36,11 +47,6 @@ const router = createRouter({
       path: '/client/:name',
       name: 'singleClient',
       component: ClientView 
-    },
-    { 
-      path: '/users',
-      name: 'users',
-      component: Clients
     },
   ],
 })
