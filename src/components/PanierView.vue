@@ -4,6 +4,7 @@
     <h2 class="subtitle">🧺 Mon panier</h2>
     <p v-if="panierStore.panier.length === 0">Votre panier est vide.</p>
     <p v-else class="total">💰 Total panier : {{ panierStore.total.toFixed(2) }} €</p>
+
     <div class="panier-section">
       <table class="crm-table" v-if="panierStore.panier.length > 0">
         <thead>
@@ -28,37 +29,11 @@
           </tr>
         </tbody>
       </table>
+
       <div class="button-wrap" v-if="panierStore.total > 0">
-        <button @click="validerPanier">Valider le panier</button>
+        <button @click="validerPanier">Payer</button>
       </div>
     </div>
-
-    <table class="crm-table">
-      <thead>
-        <tr>
-          <th>Référence</th>
-          <th>Nom</th>
-          <th>Description</th>
-          <th>Prix (€)</th>
-          <th>Stock</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="article in articles" :key="article.ref">
-          <td>{{ article.ref }}</td>
-          <td>{{ article.nom }}</td>
-          <td>{{ article.description }}</td>
-          <td>{{ article.prix.toFixed(2) }}</td>
-          <td>{{ article.quantite }}</td>
-          <td>
-            <button @click="ajouterAuPanier(article)" :disabled="article.quantite === 0">
-              ➕ Ajouter
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </template>
 
@@ -82,19 +57,11 @@ const articles = ref<Article[]>([
   { ref: "F001", nom: "Pommes", prix: 2.5, quantite: 30, description: "Pommes rouges bio" },
   { ref: "F002", nom: "Bananes", prix: 1.99, quantite: 20, description: "Bananes équitables" },
   { ref: "F003", nom: "Pain complet", prix: 3.2, quantite: 10, description: "Pain artisanal" },
-  { ref: "F004", nom: "Lait entier", prix: 1.5, quantite: 15, description: "Bouteille 1L" },
-  { ref: "F005", nom: "Œufs bio", prix: 3.8, quantite: 8, description: "Boîte de 6" },
-  // ... ajoute tes autres articles ici comme avant
+  // ... (ajoute ici le reste de tes articles comme avant)
 ]);
 
 function ajouterAuPanier(article: Article) {
-  const existing = panierStore.panier.find((item) => item.ref === article.ref);
-  if (existing) {
-    existing.quantite++;
-  } else {
-    panierStore.panier.push({ ...article, quantite: 1 });
-  }
-
+  panierStore.ajouter(article);
   const stockArticle = articles.value.find((a) => a.ref === article.ref);
   if (stockArticle && stockArticle.quantite > 0) {
     stockArticle.quantite--;
@@ -102,35 +69,26 @@ function ajouterAuPanier(article: Article) {
 }
 
 function retirerUnDuPanier(article: Article) {
-  const panierItem = panierStore.panier.find((item) => item.ref === article.ref);
-  const stockItem = articles.value.find((a) => a.ref === article.ref);
-
-  if (panierItem && stockItem) {
-    panierItem.quantite--;
-    stockItem.quantite++;
-
-    if (panierItem.quantite === 0) {
-      const index = panierStore.panier.findIndex((i) => i.ref === article.ref);
-      if (index !== -1) {
-        panierStore.panier.splice(index, 1);
-      }
-    }
+  panierStore.retirer(article);
+  const stockArticle = articles.value.find((a) => a.ref === article.ref);
+  if (stockArticle) {
+    stockArticle.quantite++;
   }
 }
 
 function supprimerDuPanier(article: Article) {
-  const index = panierStore.panier.findIndex((item) => item.ref === article.ref);
-  if (index !== -1) {
-    const original = articles.value.find((a) => a.ref === article.ref);
-    if (original) {
-      original.quantite += panierStore.panier[index].quantite;
+  const panierItem = panierStore.panier.find((item) => item.ref === article.ref);
+  if (panierItem) {
+    const stockArticle = articles.value.find((a) => a.ref === article.ref);
+    if (stockArticle) {
+      stockArticle.quantite += panierItem.quantite;
     }
-    panierStore.panier.splice(index, 1);
   }
+  panierStore.supprimer(article);
 }
 
 function validerPanier() {
-  router.push({ path: "/panier" });
+  router.push("/panier");
 }
 </script>
 

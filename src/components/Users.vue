@@ -113,8 +113,8 @@ function changerRole(user: Utilisateur) {
 <style scoped>
 .users-container {
   max-width: 100vw;
-  margin: 2rem auto;
   font-family: 'Segoe UI', Tahoma, sans-serif;
+  padding: 32px;
 }
 
 .title {
@@ -155,7 +155,7 @@ button {
   padding: 0.3rem 0.6rem;
   margin: 0 0.2rem;
   cursor: pointer;
-  background-color: #3498db;
+  background-color: #42B883;
   color: white;
   border: none;
   border-radius: 4px;

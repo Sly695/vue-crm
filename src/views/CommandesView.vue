@@ -55,7 +55,14 @@ table {
   margin-top: 1rem;
 }
 
-th, td {
+th {
+  background-color: #F2F2F2;
+  border: 1px solid #ccc;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+td {
   border: 1px solid #ccc;
   padding: 0.75rem;
   text-align: left;

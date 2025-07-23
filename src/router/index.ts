@@ -6,7 +6,7 @@ import LoginPage from '@/components/LoginPage.vue'
 import Products from '@/components/Products.vue'
 import Dashboard from '@/components/Dashboard.vue'
 import Users from '@/components/Users.vue'
-
+import Panier from '@/components/PanierView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,21 +34,26 @@ const router = createRouter({
       name: 'users',
       component: Users
     },
-    { 
-        path: '/orders',
-        name: 'orders',
-        component: CommandesView 
+    {
+      path: '/orders',
+      name: 'orders',
+      component: CommandesView
     },
-    { 
+    {
       path: '/commande/:id',
       name: 'singleOrder',
-       component: CommandeDetailView 
-      },
-    { 
+      component: CommandeDetailView
+    },
+    {
       path: '/client/:name',
       name: 'singleClient',
-      component: ClientView 
+      component: ClientView
     },
+    {
+      path: '/panier',
+      name: 'panier',
+      component: Panier
+    }
   ],
 })
 
